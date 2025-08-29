@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TurnosPresa v1.0 </title>
+    <link rel="stylesheet" href="estilos.css"></link>
+    <meta charset="utf-8">
+    <style type="text/css">
+        body {
+            background: #fff;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .turno {
+            font-size: 3em;
+            padding-top: 1.5em;
+        }
+
+        .cabecera {
+            text-align: center;
+            font-size: 5em;
+            color: black;
+
+        }
+
+        .grid-item {
+            text-align: center;
+            align-items: center;
+            font-size: 1.5em;
+            padding-top: 0px;
+            display: flex;
+            justify-content: center;
+            border-radius: 8px;
+            color: #777;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-rows: repeat(8, 60px);
+            grid-template-columns: repeat(7, 1fr);
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-top: 70px;
+            gap: 10px;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .grid-item:first-child {
+            background-color: #bbb;
+            grid-column: 1 / 8;
+            grid-row: 1 / 1;
+            color: black;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            font-family: "Arial Black", sans-serif;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+        }
+
+        .grid-item:nth(2) {
+            visibility: hidden;
+        }
+
+        #sem-item {
+            background-color: #dfdfdf;
+        }
+
+        #mañana,
+        #tarde,
+        #noche,
+        #festivo {
+            color: white;
+        }
+
+        #mañana {
+            background: linear-gradient(to bottom, #6ab7ff, #0077b6);
+        }
+
+        #tarde {
+            background: linear-gradient(to bottom, #ffa500, #cc7a00);
+        }
+
+        #noche {
+            background: linear-gradient(to bottom, #444444, #000000);
+            color: #ffffff;
+        }
+
+        #festivo {
+            background: linear-gradient(to bottom, #ff4d4d, #b30000);
+        }
+
+        h1 {
+            background-color: blueviolet;
+        }
+
+        .seleccion-turno {
+            font-size: 6em;
+            color: white;
+        }
+
+        #hueco {
+            visibility: hidden;
+        }
+        @keyframes parpadeo-pulso {
+            0%, 100% {
+              opacity: 1;
+              border-width: 1px;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.6;
+              border-width: 9px;
+              transform: scale(1.2);
+            }
+          }
+
+
+
+          .dia-actual {
+            border: 3px solid red;
+            animation: parpadeo-pulso 2s ease-in-out infinite;
+            border-radius: 5%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            margin: 0 auto;
+            font-size: 2em;
+            font-weight: bold;
+            z-index: 10;
+            width: 2em;
+            transition: transform 0.2s;
+          }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .grid-cabecera-semana {
+            background-color: #ddd;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 2px solid #aaa;
+            padding-bottom: 5px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+
+        }
+
+        .grid-cabecera-semana div {
+            width: 24.28%;
+            text-align: center;
+        }
+
+        .mes-fondo-1,
+        .mes-fondo-2,
+        .mes-fondo-3,
+        .mes-fondo-4,
+        .mes-fondo-5,
+        .mes-fondo-6,
+        .mes-fondo-7,
+        .mes-fondo-8,
+        .mes-fondo-9,
+        .mes-fondo-10,
+        .mes-fondo-11,
+        .mes-fondo-12 {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        const nombresDias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+        const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        let diasFijosMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let totalDiasAño = 365;
+        let valorTurnoInicio2022 = 12;
+
+        class ValoresTurnos {
+            constructor() {}
+
+            generarValores = (turno) => {
+                let repValor = [2, 2, 3, 4, 3, 2, 2, 5, 2, 3, 2, 5];
+                let valor = ["M", "T", "N", "D", "M", "T", "N", "D", "M", "T", "N", "D"]
+                let patron = new Array();
+                let dias = 0;
+                while (dias < 400000) {
+                    for (let iValor = 0; iValor < valor.length; iValor++) {
+                        for (let jRepValor = 1; jRepValor <= repValor[iValor]; jRepValor++) {
+                            patron[dias] = valor[iValor];
+                            dias++;
+                        }
+                    }
+                }
+                return patron;
+            }
+        }
+
+        class Dia {
+            constructor(nombreDia, numeroDia, numeroDiaTotal, turnoToca) {
+                this.nombreDia = nombreDia;
+                this.numeroDia = numeroDia;
+                this.numeroDiaTotal = numeroDiaTotal;
+                this.turnoToca = turnoToca;
+            }
+        }
+
+        class Mes {
+            constructor(nombreMes, numeroMes, diasTotales, dias, festivos) {
+                this.nombreMes = nombreMes;
+                this.numMes = numeroMes;
+                this.diasTotales = diasTotales;
+                this.dias = dias;
+                this.festivos = festivos;
+            }
+        }
+
+        class Año {
+            constructor(numeroAño, meses) {
+                this.numeroAño = numeroAño;
+                this.meses = meses;
+            }
+            rellenaAño = (numeroAño) => {
+                function comprobarBisiesto(year) {
+                    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                        diasFijosMes[1] = 29;
+                        totalDiasAño = 366;
+                    }
+                }
+                comprobarBisiesto(this.numeroAño);
+                let mesArray = new Array(11);
+                let kDiaTotal = 1;
+                for (let i = 0; i < 12; i++) {
+                    let diasArray = new Array(diasFijosMes[i]);
+                    for (let j = 0; j < diasFijosMes[i]; j++) {
+                        let fechaTemp = new Date(this.numeroAño, i, j);
+                        let diaSemana = nombresDias[fechaTemp.getDay()];
+                        diasArray[j] = new Dia(diaSemana, j + 1, kDiaTotal++, "Sin meter")
+                    }
+                    mesArray[i] = new Mes(nombresMeses[i], i + 1, diasFijosMes[i], diasArray, 0);
+                }
+                this.meses = mesArray;
+            }
+        }
+
+        class Calendario {
+            constructor(año, turno) {
+                this.año = año;
+                this.turno = turno;
+            }
+
+            mesIndividualNuevo = (mesTemp) => {
+                let numeroMesTEMP = mesTemp;
+                let mes = Array();
+                mes = this.año.meses[numeroMesTEMP];
+                let turno = this.turno;
+                let turnoLargo;
+                nuevoElemento = document.createElement("DIV");
+                let gridContainer = contenedor.appendChild(nuevoElemento);
+                gridContainer.classList.add("grid-container", `mes-fondo-${numeroMesTEMP + 1}`);
+                nuevoElemento = document.createElement("DIV");
+                let gridCabeceraMes = gridContainer.appendChild(nuevoElemento);
+                gridCabeceraMes.classList.add("grid-item");
+                gridCabeceraMes.textContent = mes.nombreMes;
+                const diasSemana = ["L", "M", "X", "J", "V", "S", "D"];
+                for (let j = 0; j < diasSemana.length; j++) {
+                    nuevoElemento = document.createElement("DIV");
+                    let gridCabeceraSem = gridContainer.appendChild(nuevoElemento);
+                    gridCabeceraSem.classList.add("grid-item", "grid-cabecera-semana");
+                    gridCabeceraSem.textContent = diasSemana[j];
+                }
+                let diaSemanaInicioMes = nombresDias.indexOf(mes.dias[0].nombreDia);
+                for (let j = 1; j <= diaSemanaInicioMes; j++) {
+                    nuevoElemento = document.createElement("DIV");
+                    let gridEnBlanco = gridContainer.appendChild(nuevoElemento);
+                    gridEnBlanco.classList.add("grid-item");
+                    gridEnBlanco.textContent = "";
+                    gridEnBlanco.id = ("hueco");
+                }
+                let fechaActual = new Date();
+                let diaActual = fechaActual.getDate();
+                let mesActual = fechaActual.getMonth();
+                let añoActual = fechaActual.getFullYear();
+                for (let i = 0; i < diasFijosMes[numeroMesTEMP]; i++) {
+                    turno = mes.dias[i].turnoToca;
+                    switch (turno) {
+                        case "M":
+                            turnoLargo = "Mañana";
+                            break;
+                        case "T":
+                            turnoLargo = "Tarde";
+                            break;
+                        case "N":
+                            turnoLargo = "Noche";
+                            break;
+                        case "D":
+                            turnoLargo = "Descanso";
+                            break;
+                        case "F":
+                            turnoLargo = "Festivo";
+                            break;
+                    }
+                    turnoLargo = turnoLargo.toLowerCase();
+                    nuevoElemento = document.createElement("DIV");
+                    let gridDiaItem = gridContainer.appendChild(nuevoElemento);
+                    gridDiaItem.classList.add("grid-item");
+                    gridDiaItem.textContent = i + 1;
+                    gridDiaItem.id = turnoLargo;
+                    if (añoActual === añoUsuario && mesActual === numeroMesTEMP && diaActual === i + 1) {
+                        gridDiaItem.classList.add("dia-actual");
+                    }
+                }
+            }
+
+            rellenarCalendarioTurno = (turno) => {
+                switch (turno) {
+                    case "A":
+                        valorTurnoInicio2022 = 19 + diasInicioCalendario;
+                        break;
+                    case "B":
+                        valorTurnoInicio2022 = 33 + diasInicioCalendario;
+                        break;
+                    case "C":
+                        valorTurnoInicio2022 = 12 + diasInicioCalendario;
+                        break;
+                    case "D":
+                        valorTurnoInicio2022 = 26 + diasInicioCalendario;
+                        break;
+                    case "E":
+                        valorTurnoInicio2022 = 5 + diasInicioCalendario;
+                        break;
+                }
+                let iTurnos = valorTurnoInicio2022;
+                let patronGeneral = new ValoresTurnos;
+                let patron = new Array();
+                patron = patronGeneral.generarValores();
+                while (iTurnos < totalDiasAño + diasInicioCalendario)
+                    for (let iMeses = 0; iMeses < 12; iMeses++) {
+                        for (let iDias = 0; iDias < diasFijosMes[iMeses]; iDias++) {
+                            this.año.meses[iMeses].dias[iDias].turnoToca = patron[iTurnos];
+                            iTurnos++;
+                        }
+                    }
+                this.año.meses[0].dias[5].turnoToca = "F";
+                this.año.meses[1].dias[27].turnoToca = "F";
+                this.año.meses[4].dias[0].turnoToca = "F";
+                this.año.meses[7].dias[14].turnoToca = "F";
+                this.año.meses[9].dias[11].turnoToca = "F";
+                this.año.meses[10].dias[0].turnoToca = "F";
+                this.año.meses[11].dias[6].turnoToca = "F";
+                this.año.meses[11].dias[8].turnoToca = "F";
+            }
+
+            mostrarAño = () => {
+                for (let i = 0; i < 12; i++) {
+                    this.mesIndividualNuevo(i);
+                }
+            }
+        }
+        let añoUsuario = 2025;
+        let turnoUsuario = "C";
+        let nuevoElemento = document.createElement("DIV");
+        let cabecera = document.body.appendChild(nuevoElemento);
+        cabecera.classList.add("cabecera");
+        nuevoElemento = document.createElement("DIV");
+        let contenedor = document.body.appendChild(nuevoElemento);
+        contenedor.classList.add("contenedor");
+        nuevoElemento = document.createElement("DIV");
+        let turnoElement = cabecera.appendChild(nuevoElemento);
+        turnoElement.classList.add("turno");
+        turnoElement.textContent = "Turno " + turnoUsuario;
+        nuevoElemento = document.createElement("DIV");
+        let añoElement = cabecera.appendChild(nuevoElemento);
+        añoElement.classList.add("año");
+        añoElement.textContent = añoUsuario;
+
+        function borrarElements() {
+            cabecera.remove();
+            contenedor.remove();
+        }
+
+        function clickBoton() {
+            do {
+                añoUsuario = prompt("Introduce el año del que deseas el calendario:   (Mayor de 2022)");
+            } while (añoUsuario < 2022)
+            do {
+                turnoUsuario = prompt("De que turno quieres el calendario:  A  B  C  D  E");
+                turnoUsuario = turnoUsuario.toUpperCase();
+            } while (turnoUsuario != "A" && turnoUsuario != "B" && turnoUsuario != "C" && turnoUsuario != "D" && turnoUsuario != "E")
+            borrarElements();
+            nuevoElemento = document.createElement("DIV");
+            cabecera = document.body.appendChild(nuevoElemento);
+            cabecera.classList.add("cabecera");
+            nuevoElemento = document.createElement("DIV");
+            contenedor = document.body.appendChild(nuevoElemento);
+            contenedor.classList.add("contenedor");
+            nuevoElemento = document.createElement("DIV");
+            turnoElement = cabecera.appendChild(nuevoElemento);
+            turnoElement.classList.add("turno");
+            turnoElement.textContent = "Turno " + turnoUsuario;
+            nuevoElemento = document.createElement("DIV");
+            añoElement = cabecera.appendChild(nuevoElemento);
+            añoElement.classList.add("año");
+            añoElement.textContent = añoUsuario;
+            console.log("dentro funcion:    Valor del input del año:" + añoUsuario);
+            console.log("dentro funcion:    valor de la seleccion de la lista " + turnoUsuario);
+            diasInicioCalendario = 0;
+            for (i = 2022; i < añoUsuario; i++) {
+                if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+                    diasInicioCalendario = diasInicioCalendario + 366;
+                } else {
+                    diasInicioCalendario = diasInicioCalendario + 365;
+                }
+            }
+            año1 = new Año(añoUsuario);
+            año1.rellenaAño(añoUsuario);
+            calendario1 = new Calendario(año1, turnoUsuario);
+            calendario1.rellenarCalendarioTurno(turnoUsuario);
+            patron = new ValoresTurnos;
+            patron.generarValores();
+            calendario1.mostrarAño();
+        }
+        let boton = document.querySelector(".turno");
+        let escuchaBoton = boton.addEventListener("click", clickBoton);
+
+
+        // Código para mostrar el mes actual al cargar la página
+        let fechaActual = new Date();
+        let añoActual = fechaActual.getFullYear();
+        let mesActual = fechaActual.getMonth();
+
+        añoUsuario = añoActual; // Establece el año a mostrar
+        //turnoUsuario = "A"; // Establece el turno a mostrar, o déjalo como está
+        diasInicioCalendario = 0;
+        for (let i = 2022; i < añoActual; i++) {
+            if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+                diasInicioCalendario = diasInicioCalendario + 366;
+            } else {
+                diasInicioCalendario = diasInicioCalendario + 365;
+            }
+        }
+
+        año1 = new Año(añoActual);
+        año1.rellenaAño(añoActual);
+        calendario1 = new Calendario(año1, turnoUsuario);
+        calendario1.rellenarCalendarioTurno(turnoUsuario);
+        patron = new ValoresTurnos();
+        patron.generarValores();
+        calendario1.mostrarAño();
+        // Fin del código para mostrar el mes actual
+
+
+    </script>
+</body>
+</html>
