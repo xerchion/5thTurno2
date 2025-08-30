@@ -250,14 +250,18 @@ function initializeEvents() {
 
     // Mostrar/ocultar modal de leyenda
     document.getElementById('leyendaBtn').onclick = function () {
-        document.getElementById('leyendaModal').style.display = 'flex';
+        const leyendaModal = document.getElementById('leyendaModal');
+        leyendaModal.classList.add('show');
+        leyendaModal.style.display = 'flex';
         // Ocultar todos los elementos excepto el nombre de la web
         document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
     };
 
     // Cerrar modal de leyenda
     document.getElementById('cerrarLeyendaBtn').onclick = function () {
-        document.getElementById('leyendaModal').style.display = 'none';
+        const leyendaModal = document.getElementById('leyendaModal');
+        leyendaModal.classList.remove('show');
+        leyendaModal.style.display = 'none';
         // Mostrar todos los elementos de nuevo
         document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
     };
@@ -265,6 +269,7 @@ function initializeEvents() {
     // Cerrar leyenda al hacer clic fuera del modal
     document.getElementById('leyendaModal').onclick = function (e) {
         if (e.target === this) {
+            this.classList.remove('show');
             this.style.display = 'none';
             document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
         }

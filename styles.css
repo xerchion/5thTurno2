@@ -102,9 +102,17 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    display: none;
+    display: none !important;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#leyendaModal.show {
+    display: flex !important;
     align-items: center;
     justify-content: center;
+    visibility: visible;
+    opacity: 1;
 }
 
 .leyenda-content {
