@@ -240,12 +240,34 @@ function initializeYearSelector() {
 
 // Función para inicializar eventos del DOM
 function initializeEvents() {
-    // Mostrar/ocultar el formulario al hacer clic en el icono
+    // Mostrar/ocultar el formulario al hacer clic en el botón "Cambiar Datos"
     document.getElementById('menuIcon').onclick = function () {
         document.getElementById('selector').style.display = 'block';
         document.getElementById('modalOverlay').style.display = 'block';
         // Ocultar todos los elementos excepto el nombre de la web
         document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
+    };
+
+    // Mostrar/ocultar modal de leyenda
+    document.getElementById('leyendaBtn').onclick = function () {
+        document.getElementById('leyendaModal').style.display = 'flex';
+        // Ocultar todos los elementos excepto el nombre de la web
+        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
+    };
+
+    // Cerrar modal de leyenda
+    document.getElementById('cerrarLeyendaBtn').onclick = function () {
+        document.getElementById('leyendaModal').style.display = 'none';
+        // Mostrar todos los elementos de nuevo
+        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
+    };
+
+    // Cerrar leyenda al hacer clic fuera del modal
+    document.getElementById('leyendaModal').onclick = function (e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+            document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
+        }
     };
 
     // Cerrar ventana con el botón Cancelar

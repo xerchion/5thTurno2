@@ -12,13 +12,16 @@
     <div class="author">by Sergio Ucedo</div>
 </div>
 
-<!-- Cabecera con título y botón -->
+<!-- Cabecera con título centrado y botones -->
 <div class="header-container">
     <div class="titulo-principal">
         <div class="turno-titulo">Turno C</div>
         <div class="año-titulo">2025</div>
     </div>
-    <button id="menuIcon">Cambiar Año/Turno</button>
+    <div class="botones-container">
+        <button id="menuIcon">Cambiar Datos</button>
+        <button id="leyendaBtn">Leyenda</button>
+    </div>
 </div>
 <div id="modalOverlay"></div>
 <div id="selector">
@@ -37,6 +40,34 @@
             <button id="cancelarBtn" type="button">Cancelar</button>
         </div>
     </form>
+</div>
+
+<!-- Modal para la leyenda de colores -->
+<div id="leyendaModal">
+    <div class="leyenda-content">
+        <h2>Leyenda de Colores</h2>
+        <div class="leyenda-items">
+            <div class="leyenda-item">
+                <div class="color-box mañana-color"></div>
+                <span>Azul - Mañana</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box tarde-color"></div>
+                <span>Amarillo - Tarde</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box noche-color"></div>
+                <span>Negro - Noche</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box festivo-color"></div>
+                <span>Rojo - Festivo</span>
+            </div>
+        </div>
+        <div class="leyenda-buttons">
+            <button id="cerrarLeyendaBtn" type="button">Cerrar</button>
+        </div>
+    </div>
 </div>
     <script src="script.js"></script>
 </body>
