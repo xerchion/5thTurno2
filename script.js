@@ -3,6 +3,13 @@ const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Ju
 let diasFijosMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 let totalDiasAño = 365;
 
+// Variables para navegación mensual
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let currentTurno = "C";
+let añoGlobal = null;
+let calendarioGlobal = null;
+
 class ValoresTurnos {
     generarValores() {
         let repValor = [2, 2, 3, 4, 3, 2, 2, 5, 2, 3, 2, 5];
@@ -126,6 +133,8 @@ class Calendario {
     }
 
     rellenarCalendarioTurno(turno, diasInicioCalendario) {
+        console.log('rellenarCalendarioTurno:', { turno, diasInicioCalendario });
+        
         let valorTurnoInicio2022;
         switch (turno) {
             case "A": valorTurnoInicio2022 = 19 + diasInicioCalendario; break;
@@ -134,14 +143,24 @@ class Calendario {
             case "D": valorTurnoInicio2022 = 26 + diasInicioCalendario; break;
             case "E": valorTurnoInicio2022 = 5 + diasInicioCalendario; break;
         }
+        
+        console.log('valorTurnoInicio2022:', valorTurnoInicio2022);
+        
         let iTurnos = valorTurnoInicio2022;
         let patronGeneral = new ValoresTurnos();
         let patron = patronGeneral.generarValores();
+        
+        console.log('Patron generado, primeros valores:', patron.slice(iTurnos, iTurnos + 10));
+        
         for (let iMeses = 0; iMeses < 12; iMeses++) {
             for (let iDias = 0; iDias < diasFijosMes[iMeses]; iDias++) {
                 this.año.meses[iMeses].dias[iDias].turnoToca = patron[iTurnos++];
             }
         }
+        
+        console.log('Turnos asignados. Verificando enero:', 
+            this.año.meses[0].dias.slice(0, 5).map(d => ({dia: d.numeroDia, turno: d.turnoToca})));
+            
         // Festivos fijos
         this.año.meses[0].dias[5].turnoToca = "F";
         this.año.meses[1].dias[27].turnoToca = "F";
@@ -158,6 +177,179 @@ class Calendario {
             this.mesIndividualNuevo(i);
         }
     }
+}
+
+// ===== FUNCIONES DEL CALENDARIO MODERNO =====
+
+// Función para renderizar un solo mes moderno
+function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
+    console.log('renderModernMonth llamado:', { año: año.numeroAño, mesNum, turno });
+    
+    const calendarGridWrapper = document.querySelector('.calendar-grid-wrapper');
+    if (!calendarGridWrapper) {
+        console.error('No se encontró .calendar-grid-wrapper');
+        return;
+    }
+
+    // Actualizar título del mes
+    const monthTitle = document.querySelector('.month-title');
+    if (monthTitle) {
+        monthTitle.textContent = `${nombresMeses[mesNum]} ${año.numeroAño}`;
+    }
+
+    // Limpiar calendario anterior
+    const existingGrid = document.querySelector('.calendar-grid');
+    if (existingGrid) existingGrid.remove();
+
+    // Crear nueva grilla del calendario
+    const calendarGrid = document.createElement('div');
+    calendarGrid.className = 'calendar-grid';
+    calendarGridWrapper.appendChild(calendarGrid);
+
+    console.log('Grilla creada, agregando headers...');
+
+    // Headers de los días de la semana
+    const diasSemanaCortos = ["L", "M", "X", "J", "V", "S", "D"];
+    diasSemanaCortos.forEach(dia => {
+        const header = document.createElement('div');
+        header.className = 'calendar-header';
+        header.textContent = dia;
+        calendarGrid.appendChild(header);
+    });
+
+    const mes = año.meses[mesNum];
+    console.log('Mes obtenido:', mes.nombreMes, 'con', mes.dias.length, 'días');
+    
+    const primerDia = mes.dias[0];
+    const diaSemanaInicio = nombresDias.indexOf(primerDia.nombreDia);
+    console.log('Primer día:', primerDia.nombreDia, 'índice:', diaSemanaInicio);
+
+    // Días en blanco al inicio del mes
+    for (let i = 0; i < diaSemanaInicio; i++) {
+        const dayBlank = document.createElement('div');
+        dayBlank.className = 'calendar-day other-month';
+        calendarGrid.appendChild(dayBlank);
+    }
+
+    console.log('Agregando días del mes...');
+    // Días del mes actual
+    mes.dias.forEach((dia, index) => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = dia.numeroDia;
+        
+        if (index < 5) {
+            console.log(`Día ${dia.numeroDia}: turno ${dia.turnoToca}`);
+        }
+
+        // Aplicar clase de turno
+        switch (dia.turnoToca) {
+            case 'M':
+                dayElement.classList.add('morning');
+                break;
+            case 'T':
+                dayElement.classList.add('afternoon');
+                break;
+            case 'N':
+                dayElement.classList.add('night');
+                break;
+            case 'D':
+                dayElement.classList.add('dayoff');
+                break;
+            case 'F':
+                dayElement.classList.add('holiday');
+                break;
+        }
+
+        // Marcar día actual
+        const today = new Date();
+        if (año.numeroAño === today.getFullYear() && 
+            mesNum === today.getMonth() && 
+            dia.numeroDia === today.getDate()) {
+            dayElement.classList.add('today');
+        }
+
+        calendarGrid.appendChild(dayElement);
+    });
+
+    // Completar con días en blanco al final si es necesario
+    const totalCells = calendarGrid.children.length;
+    const cellsNeeded = Math.ceil((totalCells - 7) / 7) * 7 + 7;
+    for (let i = totalCells; i < cellsNeeded; i++) {
+        const dayBlank = document.createElement('div');
+        dayBlank.className = 'calendar-day other-month';
+        calendarGrid.appendChild(dayBlank);
+    }
+}
+
+// Función para navegar al mes anterior
+function previousMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+        // Crear nuevo año si es necesario
+        if (añoGlobal.numeroAño !== currentYear) {
+            let diasInicioCalendario = 0;
+            for (let i = 2022; i < currentYear; i++) {
+                if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+                    diasInicioCalendario += 366;
+                } else {
+                    diasInicioCalendario += 365;
+                }
+            }
+            añoGlobal = new Año(currentYear);
+            añoGlobal.rellenaAño();
+            calendarioGlobal = new Calendario(añoGlobal, currentTurno, null, currentYear);
+            calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+        }
+    }
+    
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+    
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
+}
+
+// Función para navegar al mes siguiente
+function nextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+        // Crear nuevo año si es necesario
+        if (añoGlobal.numeroAño !== currentYear) {
+            let diasInicioCalendario = 0;
+            for (let i = 2022; i < currentYear; i++) {
+                if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+                    diasInicioCalendario += 366;
+                } else {
+                    diasInicioCalendario += 365;
+                }
+            }
+            añoGlobal = new Año(currentYear);
+            añoGlobal.rellenaAño();
+            calendarioGlobal = new Calendario(añoGlobal, currentTurno, null, currentYear);
+            calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+        }
+    }
+    
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+    
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
 }
 
 // Función para cambiar el degradado de fondo según el turno
@@ -187,22 +379,24 @@ function cambiarGradienteTurno(turno) {
 
 // Función principal para inicializar y mostrar el calendario
 function inicializarCalendario(añoUsuario, turnoUsuario) {
+    console.log('Inicializando calendario:', { añoUsuario, turnoUsuario });
+    
+    // Actualizar variables globales
+    currentYear = añoUsuario;
+    currentTurno = turnoUsuario;
+    currentMonth = 0; // Comenzar con enero para pruebas
+    
+    console.log('Variables globales:', { currentYear, currentTurno, currentMonth });
+    
     // Cambiar el gradiente según el turno
     cambiarGradienteTurno(turnoUsuario);
 
     // Actualizar título en la cabecera
     const turnoTitulo = document.querySelector('.turno-titulo');
-    const añoTitulo = document.querySelector('.año-titulo');
     if (turnoTitulo) turnoTitulo.textContent = `Turno ${turnoUsuario}`;
-    if (añoTitulo) añoTitulo.textContent = añoUsuario;
 
     // Borrar calendarios anteriores si existen
     document.querySelectorAll('.cabecera, .contenedor').forEach(e => e.remove());
-
-    // Crear contenedor para el calendario
-    let nuevoElemento = document.createElement("DIV");
-    let contenedor = document.body.appendChild(nuevoElemento);
-    contenedor.classList.add("contenedor");
 
     // Calcular días desde 2022
     let diasInicioCalendario = 0;
@@ -213,12 +407,20 @@ function inicializarCalendario(añoUsuario, turnoUsuario) {
             diasInicioCalendario += 365;
         }
     }
+    
+    console.log('Días desde 2022:', diasInicioCalendario);
 
-    let año1 = new Año(añoUsuario);
-    año1.rellenaAño();
-    let calendario1 = new Calendario(año1, turnoUsuario, contenedor, añoUsuario);
-    calendario1.rellenarCalendarioTurno(turnoUsuario, diasInicioCalendario);
-    calendario1.mostrarAño();
+    // Crear año y calendario globales
+    añoGlobal = new Año(añoUsuario);
+    añoGlobal.rellenaAño();
+    console.log('Año global creado:', añoGlobal);
+    
+    calendarioGlobal = new Calendario(añoGlobal, turnoUsuario, null, añoUsuario);
+    calendarioGlobal.rellenarCalendarioTurno(turnoUsuario, diasInicioCalendario);
+    console.log('Calendario global creado');
+    
+    // Renderizar el mes actual
+    renderModernMonth(añoGlobal, currentMonth, turnoUsuario, diasInicioCalendario);
 }
 
 // Función para inicializar el selector de años
@@ -246,33 +448,6 @@ function initializeEvents() {
         document.getElementById('modalOverlay').style.display = 'block';
         // Ocultar todos los elementos excepto el nombre de la web
         document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
-    };
-
-    // Mostrar/ocultar modal de leyenda
-    document.getElementById('leyendaBtn').onclick = function () {
-        const leyendaModal = document.getElementById('leyendaModal');
-        leyendaModal.classList.add('show');
-        leyendaModal.style.display = 'flex';
-        // Ocultar todos los elementos excepto el nombre de la web
-        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
-    };
-
-    // Cerrar modal de leyenda
-    document.getElementById('cerrarLeyendaBtn').onclick = function () {
-        const leyendaModal = document.getElementById('leyendaModal');
-        leyendaModal.classList.remove('show');
-        leyendaModal.style.display = 'none';
-        // Mostrar todos los elementos de nuevo
-        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
-    };
-
-    // Cerrar leyenda al hacer clic fuera del modal
-    document.getElementById('leyendaModal').onclick = function (e) {
-        if (e.target === this) {
-            this.classList.remove('show');
-            this.style.display = 'none';
-            document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
-        }
     };
 
     // Cerrar ventana con el botón Cancelar
@@ -304,6 +479,15 @@ function initializeEvents() {
             // Mostrar todos los elementos de nuevo
             document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
         }
+    };
+
+    // Event listeners para navegación del calendario
+    document.getElementById('prevMonth').onclick = function() {
+        previousMonth();
+    };
+
+    document.getElementById('nextMonth').onclick = function() {
+        nextMonth();
     };
 }
 

@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>5thTurno v2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +20,55 @@
 <div class="header-container">
     <div class="titulo-principal">
         <div class="turno-titulo">Turno C</div>
-        <div class="año-titulo">2025</div>
     </div>
     <div class="botones-container">
         <button id="menuIcon">Cambiar Datos</button>
-        <button id="leyendaBtn">Leyenda</button>
     </div>
 </div>
+
+<!-- Contenedor principal del calendario -->
+<main class="calendar-main">
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <div class="calendar-navigation">
+                <button id="prevMonth" class="nav-button">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <h2 id="monthTitle" class="month-title">Enero 2025</h2>
+                <button id="nextMonth" class="nav-button">
+                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="legend-indicators">
+                <div class="legend-item">
+                    <span class="legend-dot morning-shift"></span> Mañana
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot afternoon-shift"></span> Tarde
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot night-shift"></span> Noche
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot day-off"></span> Descanso
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot holiday"></span> Festivo
+                </div>
+            </div>
+        </div>
+        <div class="calendar-grid-wrapper">
+            <div id="calendarGrid" class="calendar-grid">
+                <!-- El calendario se generará aquí por JavaScript -->
+            </div>
+        </div>
+    </div>
+</main>
+
 <div id="modalOverlay"></div>
 <div id="selector">
     <form id="calForm" autocomplete="off">
@@ -43,33 +88,6 @@
     </form>
 </div>
 
-<!-- Modal para la leyenda de colores -->
-<div id="leyendaModal">
-    <div class="leyenda-content">
-        <h2>Leyenda de Colores</h2>
-        <div class="leyenda-items">
-            <div class="leyenda-item">
-                <div class="color-box mañana-color"></div>
-                <span>Azul - Mañana</span>
-            </div>
-            <div class="leyenda-item">
-                <div class="color-box tarde-color"></div>
-                <span>Amarillo - Tarde</span>
-            </div>
-            <div class="leyenda-item">
-                <div class="color-box noche-color"></div>
-                <span>Negro - Noche</span>
-            </div>
-            <div class="leyenda-item">
-                <div class="color-box festivo-color"></div>
-                <span>Rojo - Festivo</span>
-            </div>
-        </div>
-        <div class="leyenda-buttons">
-            <button id="cerrarLeyendaBtn" type="button">Cerrar</button>
-        </div>
-    </div>
-</div>
     <script src="script.js"></script>
 </body>
 </html>
