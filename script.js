@@ -514,6 +514,26 @@ function initializeYearSelector() {
     añoSelect.value = añoActual;
 }
 
+// Función para mostrar/ocultar la leyenda
+function toggleLegendVisibility() {
+    const legendIndicators = document.getElementById('legendIndicators');
+    const toggleBtn = document.getElementById('toggleLegend');
+    const toggleText = toggleBtn.querySelector('.legend-toggle-text');
+    const toggleIcon = toggleBtn.querySelector('.legend-toggle-icon');
+
+    if (legendIndicators.style.display === 'none') {
+        // Mostrar leyenda
+        legendIndicators.style.display = 'flex';
+        toggleText.textContent = 'Ocultar leyenda';
+        toggleBtn.classList.add('expanded');
+    } else {
+        // Ocultar leyenda
+        legendIndicators.style.display = 'none';
+        toggleText.textContent = 'Mostrar leyenda';
+        toggleBtn.classList.remove('expanded');
+    }
+}
+
 // Función para inicializar eventos del DOM
 function initializeEvents() {
     // Cerrar ventana con el botón Cancelar
@@ -564,6 +584,11 @@ function initializeEvents() {
 
     document.getElementById('nextTurno').onclick = function () {
         nextTurno();
+    };
+
+    // Event listener para toggle de leyenda
+    document.getElementById('toggleLegend').onclick = function () {
+        toggleLegendVisibility();
     };
 }
 
