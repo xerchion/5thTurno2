@@ -40,8 +40,8 @@ body {
 /* Nombre de la web en esquina superior */
 .web-title {
     position: fixed;
-    top: 10px;
-    right: 20px;
+    top: 20px;
+    right: 30px;
     text-align: right;
     z-index: 1001;
     opacity: 0.8;
@@ -49,45 +49,17 @@ body {
 }
 
 .web-title .app-name {
-    font-size: 0.9em;
+    font-size: 2.7em;
     color: #666;
     font-weight: 500;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
 }
 
 .web-title .author {
-    font-size: 0.7em;
+    font-size: 2.1em;
     color: #888;
     font-weight: 300;
     font-style: italic;
-}
-
-/* Botón flotante de configuración */
-.floating-settings-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid #e5e7eb;
-    border-radius: 50%;
-    width: 56px;
-    height: 56px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(10px);
-    font-size: 1.5rem;
-}
-
-.floating-settings-button:hover {
-    background: rgba(243, 244, 246, 0.95);
-    border-color: #d1d5db;
-    transform: translateY(-2px) rotate(90deg);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Contenedor principal de la cabecera */
@@ -100,58 +72,11 @@ body {
     box-sizing: border-box;
 }
 
-/* Estilo para el título principal (turno y año) - ahora centrado */
-.titulo-principal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    text-align: center;
-    width: 100%;
-}
-
-.titulo-principal .turno-titulo {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #4B0082;
-    margin: 0;
-    line-height: 1.2;
-}
-
-.titulo-principal .año-titulo {
-    font-size: 2.8em;
-    color: #4B0082;
-    font-weight: bold;
-    margin: 0;
-    line-height: 1.2;
-}
-
 /* Contenedor para los botones */
 .botones-container {
     display: flex;
     gap: 20px;
     align-items: center;
-}
-
-/* Estilo para ambos botones */
-#menuIcon,
-#leyendaBtn {
-    font-size: 1.2em;
-    cursor: pointer;
-    margin: 0;
-    padding: 12px 24px;
-    background-color: #4B0082;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.15);
-}
-
-#menuIcon:hover,
-#leyendaBtn:hover {
-    background-color: #6a1b9a;
 }
 
 /* Modal de Leyenda */
@@ -798,25 +723,19 @@ h1 {
         flex-direction: column;
         gap: 10px;
     }
-
-    #menuIcon,
-    #leyendaBtn {
-        font-size: 1.1em;
-        padding: 10px 20px;
-    }
 }
 
 .web-title .app-name {
-    font-size: 0.8em;
+    font-size: 2.4em;
 }
 
 .web-title .author {
-    font-size: 0.6em;
+    font-size: 1.8em;
 }
 
 .web-title {
-    top: 8px;
-    right: 15px;
+    top: 15px;
+    right: 25px;
 }
 
 /* Leyenda responsive */
@@ -859,23 +778,17 @@ h1 {
         gap: 8px;
     }
 
-    #menuIcon,
-    #leyendaBtn {
-        font-size: 1em;
-        padding: 8px 16px;
-    }
-
     .web-title .app-name {
-        font-size: 0.7em;
+        font-size: 2.1em;
     }
 
     .web-title .author {
-        font-size: 0.5em;
+        font-size: 1.5em;
     }
 
     .web-title {
-        top: 5px;
-        right: 10px;
+        top: 10px;
+        right: 15px;
     }
 
     /* Leyenda responsive móvil */
@@ -958,6 +871,14 @@ h1 {
     line-height: 1.2;
 }
 
+.year-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #4B0082;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
 .month-title {
     font-size: 1.75rem;
     font-weight: 700;
@@ -972,6 +893,150 @@ h1 {
     gap: 16px;
     justify-content: center;
     margin-top: 16px;
+}
+
+/* Menú de botones */
+.menu-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.menu-button {
+    background: #4B0082;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.15);
+}
+
+.menu-button:hover {
+    background: #6a1b9a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.25);
+}
+
+/* Modal de Leyenda */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.leyenda-content {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    border: 2px solid #4B0082;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.leyenda-content h2 {
+    color: #4B0082;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.leyenda-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 12px 16px;
+    background: rgba(248, 250, 252, 0.8);
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.leyenda-item:hover {
+    background: rgba(241, 245, 249, 0.9);
+}
+
+.color-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid #374151;
+    flex-shrink: 0;
+}
+
+.mañana-color {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+}
+
+.tarde-color {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.noche-color {
+    background: linear-gradient(135deg, #374151, #111827);
+}
+
+.festivo-color {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.leyenda-item span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.leyenda-buttons {
+    text-align: center;
+}
+
+#cerrarLeyendaBtn {
+    padding: 12px 24px;
+    background-color: #4B0082;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.15);
+}
+
+#cerrarLeyendaBtn:hover {
+    background-color: #6a1b9a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.25);
 }
 
 .legend-item {
@@ -1181,6 +1246,24 @@ h1 {
         padding: 12px 4px;
         font-size: 0.75rem;
     }
+
+    .menu-buttons {
+        gap: 12px;
+    }
+
+    .menu-button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    .year-title {
+        font-size: 1.8rem;
+    }
+
+    .leyenda-content {
+        padding: 24px;
+        max-width: 350px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1193,5 +1276,35 @@ h1 {
     .calendar-header {
         padding: 10px 2px;
         font-size: 0.7rem;
+    }
+
+    .menu-buttons {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .menu-button {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+        min-width: 120px;
+    }
+
+    .year-title {
+        font-size: 1.5rem;
+    }
+
+    .leyenda-content {
+        padding: 20px;
+        max-width: 300px;
+    }
+
+    .leyenda-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .color-box {
+        width: 28px;
+        height: 28px;
     }
 }

@@ -16,9 +16,6 @@
     <div class="author">by Sergio Ucedo</div>
 </div>
 
-<!-- Botón de configuración flotante -->
-<button id="menuIcon" class="floating-settings-button">⚙️</button>
-
 <!-- Contenedor principal del calendario -->
 <main class="calendar-main">
     <div class="calendar-container">
@@ -31,7 +28,8 @@
                 </button>
                 <div class="calendar-title">
                     <div class="turno-titulo">Turno C</div>
-                    <h2 id="monthTitle" class="month-title">Enero 2025</h2>
+                    <div id="yearTitle" class="year-title">2025</div>
+                    <h2 id="monthTitle" class="month-title">Enero</h2>
                 </div>
                 <button id="nextMonth" class="nav-button">
                     <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -39,22 +37,9 @@
                     </svg>
                 </button>
             </div>
-            <div class="legend-indicators">
-                <div class="legend-item">
-                    <span class="legend-dot morning-shift"></span> Mañana
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot afternoon-shift"></span> Tarde
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot night-shift"></span> Noche
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot day-off"></span> Descanso
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot holiday"></span> Festivo
-                </div>
+            <div class="menu-buttons">
+                <button id="cambiarBtn" class="menu-button">Cambiar</button>
+                <button id="leyendaBtn" class="menu-button">Leyenda</button>
             </div>
         </div>
         <div class="calendar-grid-wrapper">
@@ -82,6 +67,38 @@
             <button id="cancelarBtn" type="button">Cancelar</button>
         </div>
     </form>
+</div>
+
+<!-- Modal de Leyenda -->
+<div id="leyendaModal" class="modal-overlay">
+    <div class="leyenda-content">
+        <h2>Leyenda de Turnos</h2>
+        <div class="leyenda-items">
+            <div class="leyenda-item">
+                <div class="color-box mañana-color"></div>
+                <span>Mañana</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box tarde-color"></div>
+                <span>Tarde</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box noche-color"></div>
+                <span>Noche</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box" style="background: #ffffff; border: 2px solid #333;"></div>
+                <span>Descanso</span>
+            </div>
+            <div class="leyenda-item">
+                <div class="color-box festivo-color"></div>
+                <span>Festivo</span>
+            </div>
+        </div>
+        <div class="leyenda-buttons">
+            <button id="cerrarLeyendaBtn">Cerrar</button>
+        </div>
+    </div>
 </div>
 
     <script src="script.js"></script>

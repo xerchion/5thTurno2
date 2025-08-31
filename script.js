@@ -191,10 +191,14 @@ function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
         return;
     }
 
-    // Actualizar título del mes
+    // Actualizar título del año y del mes
+    const yearTitle = document.querySelector('.year-title');
     const monthTitle = document.querySelector('.month-title');
+    if (yearTitle) {
+        yearTitle.textContent = año.numeroAño;
+    }
     if (monthTitle) {
-        monthTitle.textContent = `${nombresMeses[mesNum]} ${año.numeroAño}`;
+        monthTitle.textContent = nombresMeses[mesNum];
     }
 
     // Limpiar calendario anterior
@@ -442,27 +446,40 @@ function initializeYearSelector() {
 
 // Función para inicializar eventos del DOM
 function initializeEvents() {
-    // Mostrar/ocultar el formulario al hacer clic en el botón "Cambiar Datos"
-    document.getElementById('menuIcon').onclick = function () {
+    // Mostrar/ocultar el formulario al hacer clic en el botón "Cambiar"
+    document.getElementById('cambiarBtn').onclick = function () {
         document.getElementById('selector').style.display = 'block';
         document.getElementById('modalOverlay').style.display = 'block';
-        // Ocultar todos los elementos excepto el nombre de la web
-        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.add('oculto'));
+    };
+
+    // Mostrar/ocultar la leyenda al hacer clic en el botón "Leyenda"
+    document.getElementById('leyendaBtn').onclick = function () {
+        const modal = document.getElementById('leyendaModal');
+        modal.classList.add('show');
+    };
+
+    // Cerrar leyenda
+    document.getElementById('cerrarLeyendaBtn').onclick = function () {
+        const modal = document.getElementById('leyendaModal');
+        modal.classList.remove('show');
+    };
+
+    // Cerrar leyenda al hacer clic en el overlay
+    document.getElementById('leyendaModal').onclick = function (e) {
+        if (e.target === this) {
+            this.classList.remove('show');
+        }
     };
 
     // Cerrar ventana con el botón Cancelar
     document.getElementById('cancelarBtn').onclick = function () {
         document.getElementById('selector').style.display = 'none';
         document.getElementById('modalOverlay').style.display = 'none';
-        // Mostrar todos los elementos de nuevo
-        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
     };
 
     document.getElementById('modalOverlay').onclick = function () {
         document.getElementById('selector').style.display = 'none';
         this.style.display = 'none';
-        // Mostrar todos los elementos de nuevo
-        document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
     };
 
     // Manejar el envío del formulario
@@ -476,8 +493,6 @@ function initializeEvents() {
             inicializarCalendario(año, turno);
             document.getElementById('selector').style.display = 'none';
             document.getElementById('modalOverlay').style.display = 'none';
-            // Mostrar todos los elementos de nuevo
-            document.querySelectorAll('.header-container, .cabecera, .contenedor').forEach(e => e.classList.remove('oculto'));
         }
     };
 
