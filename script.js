@@ -391,8 +391,8 @@ function inicializarCalendario(añoUsuario, turnoUsuario) {
     // Cambiar el gradiente según el turno
     cambiarGradienteTurno(turnoUsuario);
 
-    // Actualizar título en la cabecera
-    const turnoTitulo = document.querySelector('.turno-titulo');
+    // Actualizar título en la cabecera del calendario
+    const turnoTitulo = document.querySelector('.calendar-title .turno-titulo');
     if (turnoTitulo) turnoTitulo.textContent = `Turno ${turnoUsuario}`;
 
     // Borrar calendarios anteriores si existen
