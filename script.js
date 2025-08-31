@@ -359,26 +359,8 @@ function nextMonth() {
 // Función para cambiar el degradado de fondo según el turno
 function cambiarGradienteTurno(turno) {
     const body = document.body;
-
-    switch (turno) {
-        case "A":
-            body.style.background = "linear-gradient(135deg, rgba(116, 185, 255, 0.3) 0%, rgba(9, 132, 227, 0.2) 100%)"; // Azul muy claro
-            break;
-        case "B":
-            body.style.background = "linear-gradient(135deg, rgba(0, 184, 148, 0.3) 0%, rgba(0, 160, 133, 0.2) 100%)"; // Verde muy claro
-            break;
-        case "C":
-            body.style.background = "linear-gradient(135deg, rgba(255, 118, 117, 0.3) 0%, rgba(214, 48, 49, 0.2) 100%)"; // Rojo muy claro
-            break;
-        case "D":
-            body.style.background = "linear-gradient(135deg, rgba(160, 149, 107, 0.3) 0%, rgba(139, 115, 85, 0.2) 100%)"; // Marrón muy claro
-            break;
-        case "E":
-            body.style.background = "linear-gradient(135deg, rgba(253, 203, 110, 0.3) 0%, rgba(225, 112, 85, 0.2) 100%)"; // Amarillo muy claro
-            break;
-        default:
-            body.style.background = "linear-gradient(135deg, rgba(245, 247, 250, 0.8) 0%, rgba(195, 207, 226, 0.6) 100%)"; // Por defecto muy claro
-    }
+    // Siempre usar fondo blanco independientemente del turno
+    body.style.background = "#ffffff";
 }
 
 // Función principal para inicializar y mostrar el calendario
