@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>5thTurno v2.0</title>
+    <title>5thTurno v2.5</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -10,36 +10,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<!-- Nombre de la web en esquina superior -->
-<div class="web-title">
-    <div class="app-name">5thTurno v2.0</div>
-    <div class="author">by Sergio Ucedo</div>
-</div>
-
 <!-- Contenedor principal del calendario -->
 <main class="calendar-main">
     <div class="calendar-container">
         <div class="calendar-header">
             <div class="calendar-navigation">
-                <button id="prevMonth" class="nav-button">
-                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
                 <div class="calendar-title">
-                    <div class="turno-titulo">Turno C</div>
-                    <div id="yearTitle" class="year-title">2025</div>
-                    <h2 id="monthTitle" class="month-title">Enero</h2>
+                    <div class="top-controls-row">
+                        <div class="turno-control-group">
+                            <button id="prevTurno" class="nav-button nav-button-small">
+                                <svg class="nav-icon-small" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <div class="turno-titulo">Turno C</div>
+                            <button id="nextTurno" class="nav-button nav-button-small">
+                                <svg class="nav-icon-small" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="year-control-group">
+                            <button id="prevYear" class="nav-button nav-button-small">
+                                <svg class="nav-icon-small" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <div id="yearTitle" class="year-title">2025</div>
+                            <button id="nextYear" class="nav-button nav-button-small">
+                                <svg class="nav-icon-small" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="month-control-group">
+                        <button id="prevMonth" class="nav-button">
+                            <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <h2 id="monthTitle" class="month-title">Enero</h2>
+                        <button id="nextMonth" class="nav-button">
+                            <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <button id="nextMonth" class="nav-button">
-                    <svg class="nav-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
             </div>
-            <div class="menu-buttons">
-                <button id="cambiarBtn" class="menu-button">Cambiar</button>
-                <button id="leyendaBtn" class="menu-button">Leyenda</button>
+        </div>
+        <div class="legend-and-title-container">
+            <div class="legend-indicators">
+                <div class="legend-item">
+                    <span class="legend-dot morning-shift"></span> Mañana
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot afternoon-shift"></span> Tarde
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot night-shift"></span> Noche
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot day-off"></span> Descanso
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot holiday"></span> Festivo
+                </div>
+            </div>
+            <div class="web-title">
+                <div class="app-name">5thTurno v2.5</div>
+                <div class="author">by Sergio Ucedo</div>
             </div>
         </div>
         <div class="calendar-grid-wrapper">

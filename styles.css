@@ -37,31 +37,6 @@ body {
     color: #1f2937;
 }
 
-/* Nombre de la web en esquina superior */
-.web-title {
-    position: static;
-    text-align: right;
-    z-index: 1001;
-    opacity: 0.8;
-    user-select: none;
-    padding: 10px 20px 0 0;
-    margin-bottom: 10px;
-}
-
-.web-title .app-name {
-    font-size: 0.9em;
-    color: #666;
-    font-weight: 500;
-    margin-bottom: 2px;
-}
-
-.web-title .author {
-    font-size: 0.7em;
-    color: #888;
-    font-weight: 300;
-    font-style: italic;
-}
-
 /* Contenedor principal de la cabecera */
 .header-container {
     display: flex;
@@ -826,7 +801,8 @@ h1 {
 
 /* Container principal del calendario */
 .calendar-main {
-    max-width: 1260px;
+    max-width: 1386px;
+    /* Aumentado 10% desde 1260px */
     margin: 20px auto;
     padding: 20px;
     min-height: calc(100vh - 120px);
@@ -852,8 +828,82 @@ h1 {
 .calendar-navigation {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 16px;
+    gap: 16px;
+}
+
+.calendar-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.top-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+}
+
+.turno-control-group,
+.year-control-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.month-control-group {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    /* Aumentado 20% más desde 40px */
+    min-width: 560px;
+    /* Aumentado 30% más para estabilidad */
+    justify-content: center;
+}
+
+.month-title {
+    min-width: 220px;
+    /* Aumentado 30% desde 160px para más margen */
+    text-align: center;
+    margin: 0 30px;
+    /* Margen adicional de 30px a cada lado */
+}
+
+.year-controls,
+.turno-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-button-small {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button-small:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-icon-small {
+    width: 16px;
+    height: 16px;
+    color: #374151;
 }
 
 .calendar-title {
@@ -893,6 +943,20 @@ h1 {
     gap: 16px;
     justify-content: center;
     margin-top: 16px;
+}
+
+.legend-and-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 0 20px;
+}
+
+.web-title {
+    text-align: right;
+    opacity: 0.8;
+    user-select: none;
 }
 
 /* Menú de botones */
@@ -1155,13 +1219,14 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
+    font-weight: 700;
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-size: 3.75rem;
+    font-size: 4.5rem;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
+    letter-spacing: -0.02em;
 }
 
 .calendar-day:hover {
@@ -1178,16 +1243,65 @@ h1 {
 
 /* Día actual */
 .calendar-day.today {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    color: white;
+    background: radial-gradient(circle, #ffffff, #ef4444) !important;
+    color: #1f2937 !important;
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-    border-radius: 8px;
+    border: 4px solid #3b82f6;
+    box-shadow: 0 0 0 4px #dbeafe, 0 4px 12px rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    animation: pulse-today 2s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
+    padding: 12px;
 }
 
 .calendar-day.today:hover {
-    background: linear-gradient(135deg, #1d4ed8, #1e40af);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db) !important;
+    transform: scale(1.08);
+    border-color: #2563eb;
+}
+
+@keyframes pulse-border {
+
+    0%,
+    100% {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px #dbeafe, 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    50% {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px #bfdbfe, 0 6px 16px rgba(37, 99, 235, 0.4);
+    }
+}
+
+@keyframes pulse-today {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px #dbeafe, 0 4px 12px rgba(59, 130, 246, 0.3);
+        background: radial-gradient(circle, #ffffff, #ef4444) !important;
+    }
+
+    25% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 6px #bfdbfe, 0 8px 20px rgba(37, 99, 235, 0.5);
+    }
+
+    75% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
 }
 
 /* Turnos en los días */
@@ -1227,21 +1341,21 @@ h1 {
     .calendar-nav h2 {
         font-size: 1.25rem;
     }
-    
+
     .nav-button {
         padding: 6px;
     }
-    
+
     .nav-button svg {
         width: 16px;
         height: 16px;
     }
-    
+
     .calendar-day {
         min-height: 60px;
         font-size: 0.875rem;
     }
-    
+
     .calendar-header {
         padding: 12px 4px;
         font-size: 0.75rem;
@@ -1272,7 +1386,7 @@ h1 {
         font-size: 0.8rem;
         padding: 4px;
     }
-    
+
     .calendar-header {
         padding: 10px 2px;
         font-size: 0.7rem;

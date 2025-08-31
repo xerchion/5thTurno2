@@ -134,7 +134,7 @@ class Calendario {
 
     rellenarCalendarioTurno(turno, diasInicioCalendario) {
         console.log('rellenarCalendarioTurno:', { turno, diasInicioCalendario });
-        
+
         let valorTurnoInicio2022;
         switch (turno) {
             case "A": valorTurnoInicio2022 = 19 + diasInicioCalendario; break;
@@ -143,33 +143,33 @@ class Calendario {
             case "D": valorTurnoInicio2022 = 26 + diasInicioCalendario; break;
             case "E": valorTurnoInicio2022 = 5 + diasInicioCalendario; break;
         }
-        
+
         console.log('valorTurnoInicio2022:', valorTurnoInicio2022);
-        
+
         let iTurnos = valorTurnoInicio2022;
         let patronGeneral = new ValoresTurnos();
         let patron = patronGeneral.generarValores();
-        
+
         console.log('Patron generado, primeros valores:', patron.slice(iTurnos, iTurnos + 10));
-        
+
         for (let iMeses = 0; iMeses < 12; iMeses++) {
             for (let iDias = 0; iDias < diasFijosMes[iMeses]; iDias++) {
                 this.año.meses[iMeses].dias[iDias].turnoToca = patron[iTurnos++];
             }
         }
-        
-        console.log('Turnos asignados. Verificando enero:', 
-            this.año.meses[0].dias.slice(0, 5).map(d => ({dia: d.numeroDia, turno: d.turnoToca})));
-            
+
+        console.log('Turnos asignados. Verificando enero:',
+            this.año.meses[0].dias.slice(0, 5).map(d => ({ dia: d.numeroDia, turno: d.turnoToca })));
+
         // Festivos fijos
-        this.año.meses[0].dias[5].turnoToca = "F";
-        this.año.meses[1].dias[27].turnoToca = "F";
-        this.año.meses[4].dias[0].turnoToca = "F";
-        this.año.meses[7].dias[14].turnoToca = "F";
-        this.año.meses[9].dias[11].turnoToca = "F";
-        this.año.meses[10].dias[0].turnoToca = "F";
-        this.año.meses[11].dias[6].turnoToca = "F";
-        this.año.meses[11].dias[8].turnoToca = "F";
+        this.año.meses[0].dias[5].turnoToca = "F";   // 6 de enero - Epifanía
+        this.año.meses[1].dias[27].turnoToca = "F";  // 28 de febrero - Día de Andalucía
+        this.año.meses[4].dias[0].turnoToca = "F";   // 1 de mayo - Día del Trabajo
+        this.año.meses[7].dias[14].turnoToca = "F";  // 15 de agosto - Asunción
+        this.año.meses[9].dias[11].turnoToca = "F";  // 12 de octubre - Día de la Hispanidad
+        this.año.meses[10].dias[0].turnoToca = "F";  // 1 de noviembre - Todos los Santos
+        this.año.meses[11].dias[5].turnoToca = "F";  // 6 de diciembre - Constitución
+        this.año.meses[11].dias[7].turnoToca = "F";  // 8 de diciembre - Inmaculada
     }
 
     mostrarAño() {
@@ -184,7 +184,7 @@ class Calendario {
 // Función para renderizar un solo mes moderno
 function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
     console.log('renderModernMonth llamado:', { año: año.numeroAño, mesNum, turno });
-    
+
     const calendarGridWrapper = document.querySelector('.calendar-grid-wrapper');
     if (!calendarGridWrapper) {
         console.error('No se encontró .calendar-grid-wrapper');
@@ -223,7 +223,7 @@ function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
 
     const mes = año.meses[mesNum];
     console.log('Mes obtenido:', mes.nombreMes, 'con', mes.dias.length, 'días');
-    
+
     const primerDia = mes.dias[0];
     const diaSemanaInicio = nombresDias.indexOf(primerDia.nombreDia);
     console.log('Primer día:', primerDia.nombreDia, 'índice:', diaSemanaInicio);
@@ -241,7 +241,7 @@ function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
         const dayElement = document.createElement('div');
         dayElement.className = 'calendar-day';
         dayElement.textContent = dia.numeroDia;
-        
+
         if (index < 5) {
             console.log(`Día ${dia.numeroDia}: turno ${dia.turnoToca}`);
         }
@@ -267,8 +267,8 @@ function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
 
         // Marcar día actual
         const today = new Date();
-        if (año.numeroAño === today.getFullYear() && 
-            mesNum === today.getMonth() && 
+        if (año.numeroAño === today.getFullYear() &&
+            mesNum === today.getMonth() &&
             dia.numeroDia === today.getDate()) {
             dayElement.classList.add('today');
         }
@@ -286,7 +286,95 @@ function renderModernMonth(año, mesNum, turno, diasInicioCalendario) {
     }
 }
 
-// Función para navegar al mes anterior
+// Función para navegar al año anterior
+function previousYear() {
+    currentYear--;
+    // Crear nuevo año si es necesario
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+    añoGlobal = new Año(currentYear);
+    añoGlobal.rellenaAño();
+    calendarioGlobal = new Calendario(añoGlobal, currentTurno, null, currentYear);
+    calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
+}
+
+// Función para navegar al año siguiente
+function nextYear() {
+    currentYear++;
+    // Crear nuevo año si es necesario
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+    añoGlobal = new Año(currentYear);
+    añoGlobal.rellenaAño();
+    calendarioGlobal = new Calendario(añoGlobal, currentTurno, null, currentYear);
+    calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
+}
+
+// Función para cambiar al turno anterior
+function previousTurno() {
+    const turnos = ['A', 'B', 'C', 'D', 'E'];
+    const currentIndex = turnos.indexOf(currentTurno);
+    const newIndex = currentIndex === 0 ? turnos.length - 1 : currentIndex - 1;
+    currentTurno = turnos[newIndex];
+
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+
+    calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+
+    // Actualizar título del turno
+    const turnoTitulo = document.querySelector('.calendar-title .turno-titulo');
+    if (turnoTitulo) turnoTitulo.textContent = `Turno ${currentTurno}`;
+
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
+}
+
+// Función para cambiar al turno siguiente
+function nextTurno() {
+    const turnos = ['A', 'B', 'C', 'D', 'E'];
+    const currentIndex = turnos.indexOf(currentTurno);
+    const newIndex = currentIndex === turnos.length - 1 ? 0 : currentIndex + 1;
+    currentTurno = turnos[newIndex];
+
+    let diasInicioCalendario = 0;
+    for (let i = 2022; i < currentYear; i++) {
+        if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+            diasInicioCalendario += 366;
+        } else {
+            diasInicioCalendario += 365;
+        }
+    }
+
+    calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
+
+    // Actualizar título del turno
+    const turnoTitulo = document.querySelector('.calendar-title .turno-titulo');
+    if (turnoTitulo) turnoTitulo.textContent = `Turno ${currentTurno}`;
+
+    renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
+}
 function previousMonth() {
     currentMonth--;
     if (currentMonth < 0) {
@@ -308,7 +396,7 @@ function previousMonth() {
             calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
         }
     }
-    
+
     let diasInicioCalendario = 0;
     for (let i = 2022; i < currentYear; i++) {
         if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
@@ -317,7 +405,7 @@ function previousMonth() {
             diasInicioCalendario += 365;
         }
     }
-    
+
     renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
 }
 
@@ -343,7 +431,7 @@ function nextMonth() {
             calendarioGlobal.rellenarCalendarioTurno(currentTurno, diasInicioCalendario);
         }
     }
-    
+
     let diasInicioCalendario = 0;
     for (let i = 2022; i < currentYear; i++) {
         if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
@@ -352,7 +440,7 @@ function nextMonth() {
             diasInicioCalendario += 365;
         }
     }
-    
+
     renderModernMonth(añoGlobal, currentMonth, currentTurno, diasInicioCalendario);
 }
 
@@ -366,14 +454,14 @@ function cambiarGradienteTurno(turno) {
 // Función principal para inicializar y mostrar el calendario
 function inicializarCalendario(añoUsuario, turnoUsuario) {
     console.log('Inicializando calendario:', { añoUsuario, turnoUsuario });
-    
+
     // Actualizar variables globales
     currentYear = añoUsuario;
     currentTurno = turnoUsuario;
-    currentMonth = 0; // Comenzar con enero para pruebas
-    
+    currentMonth = new Date().getMonth(); // Mes actual en lugar de enero
+
     console.log('Variables globales:', { currentYear, currentTurno, currentMonth });
-    
+
     // Cambiar el gradiente según el turno
     cambiarGradienteTurno(turnoUsuario);
 
@@ -393,18 +481,18 @@ function inicializarCalendario(añoUsuario, turnoUsuario) {
             diasInicioCalendario += 365;
         }
     }
-    
+
     console.log('Días desde 2022:', diasInicioCalendario);
 
     // Crear año y calendario globales
     añoGlobal = new Año(añoUsuario);
     añoGlobal.rellenaAño();
     console.log('Año global creado:', añoGlobal);
-    
+
     calendarioGlobal = new Calendario(añoGlobal, turnoUsuario, null, añoUsuario);
     calendarioGlobal.rellenarCalendarioTurno(turnoUsuario, diasInicioCalendario);
     console.log('Calendario global creado');
-    
+
     // Renderizar el mes actual
     renderModernMonth(añoGlobal, currentMonth, turnoUsuario, diasInicioCalendario);
 }
@@ -428,31 +516,6 @@ function initializeYearSelector() {
 
 // Función para inicializar eventos del DOM
 function initializeEvents() {
-    // Mostrar/ocultar el formulario al hacer clic en el botón "Cambiar"
-    document.getElementById('cambiarBtn').onclick = function () {
-        document.getElementById('selector').style.display = 'block';
-        document.getElementById('modalOverlay').style.display = 'block';
-    };
-
-    // Mostrar/ocultar la leyenda al hacer clic en el botón "Leyenda"
-    document.getElementById('leyendaBtn').onclick = function () {
-        const modal = document.getElementById('leyendaModal');
-        modal.classList.add('show');
-    };
-
-    // Cerrar leyenda
-    document.getElementById('cerrarLeyendaBtn').onclick = function () {
-        const modal = document.getElementById('leyendaModal');
-        modal.classList.remove('show');
-    };
-
-    // Cerrar leyenda al hacer clic en el overlay
-    document.getElementById('leyendaModal').onclick = function (e) {
-        if (e.target === this) {
-            this.classList.remove('show');
-        }
-    };
-
     // Cerrar ventana con el botón Cancelar
     document.getElementById('cancelarBtn').onclick = function () {
         document.getElementById('selector').style.display = 'none';
@@ -479,12 +542,28 @@ function initializeEvents() {
     };
 
     // Event listeners para navegación del calendario
-    document.getElementById('prevMonth').onclick = function() {
+    document.getElementById('prevYear').onclick = function () {
+        previousYear();
+    };
+
+    document.getElementById('nextYear').onclick = function () {
+        nextYear();
+    };
+
+    document.getElementById('prevMonth').onclick = function () {
         previousMonth();
     };
 
-    document.getElementById('nextMonth').onclick = function() {
+    document.getElementById('nextMonth').onclick = function () {
         nextMonth();
+    };
+
+    document.getElementById('prevTurno').onclick = function () {
+        previousTurno();
+    };
+
+    document.getElementById('nextTurno').onclick = function () {
+        nextTurno();
     };
 }
 
