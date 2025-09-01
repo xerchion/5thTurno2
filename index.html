@@ -15,31 +15,6 @@
     <!-- Título de la aplicación en la parte superior -->
     <div class="app-header">
         <div class="app-title">5thTurno v2.5 by Sergio Ucedo</div>
-        <div class="legend-section">
-            <button id="toggleLegend" class="legend-toggle-btn">
-                <span class="legend-toggle-text">Leyenda</span>
-                <svg class="legend-toggle-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-            <div id="legendIndicators" class="legend-indicators">
-                <div class="legend-item">
-                    <span class="legend-dot morning-shift"></span> Mañana
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot afternoon-shift"></span> Tarde
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot night-shift"></span> Noche
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot day-off"></span> Descanso
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot holiday"></span> Festivo
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="calendar-container">
@@ -97,6 +72,59 @@
         <div class="calendar-grid-wrapper">
             <div id="calendarGrid" class="calendar-grid">
                 <!-- El calendario se generará aquí por JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Leyenda estática siempre visible -->
+    <div class="static-legend">
+        <div class="static-legend-items">
+            <div class="static-legend-item">
+                <span class="legend-dot morning-shift"></span>
+                <span>Mañana</span>
+            </div>
+            <div class="static-legend-item">
+                <span class="legend-dot afternoon-shift"></span>
+                <span>Tarde</span>
+            </div>
+            <div class="static-legend-item">
+                <span class="legend-dot night-shift"></span>
+                <span>Noche</span>
+            </div>
+            <div class="static-legend-item">
+                <span class="legend-dot day-off"></span>
+                <span>Descanso</span>
+            </div>
+            <div class="static-legend-item">
+                <span class="legend-dot holiday"></span>
+                <span>Festivo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leyenda movida debajo del calendario -->
+    <div class="legend-section">
+        <button id="toggleLegend" class="legend-toggle-btn">
+            <span class="legend-toggle-text">Leyenda</span>
+            <svg class="legend-toggle-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+        <div id="legendIndicators" class="legend-indicators">
+            <div class="legend-item">
+                <span class="legend-dot morning-shift"></span> Mañana
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot afternoon-shift"></span> Tarde
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot night-shift"></span> Noche
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot day-off"></span> Descanso
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot holiday"></span> Festivo
             </div>
         </div>
     </div>

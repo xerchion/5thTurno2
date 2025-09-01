@@ -818,7 +818,7 @@ h1 {
 
 .app-title {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: #4B0082;
     text-align: left;
@@ -1461,7 +1461,7 @@ h1 {
     }
 
     .app-title {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
 
     .legend-indicators {
@@ -1532,16 +1532,41 @@ h1 {
 }
 
 @media (max-width: 480px) {
-    .app-header {
-        display: none;
+    .static-legend {
+        margin-top: 3px;
+        padding: 0 10px;
     }
 
-    .legend-section {
-        display: none;
+    .static-legend-items {
+        gap: 8px;
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .static-legend-item {
+        font-size: 0.75rem;
+        gap: 6px;
+    }
+
+    .app-header {
+        display: flex;
+        padding: 5px 10px 3px 10px;
+        justify-content: flex-start;
+    }
+
+    .legend-indicators {
+        margin: 0 auto;
+        max-width: calc(100vw - 20px);
+        padding: 12px;
+        gap: 12px;
+        min-width: auto;
+        width: fit-content;
     }
 
     .app-title {
-        display: none;
+        display: block;
+        font-size: 0.55rem;
+        text-align: left;
     }
 
     .calendar-main {
@@ -1551,15 +1576,6 @@ h1 {
 
     .calendar-container {
         padding: 8px;
-    }
-
-    .legend-indicators {
-        position: relative;
-        right: auto;
-        min-width: auto;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
     }
 
     .turno-control-group,
@@ -1656,13 +1672,52 @@ h1 {
     align-items: center;
 }
 
+/* Leyenda estática siempre visible */
+.static-legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    padding: 0 20px;
+}
+
+.static-legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    width: 100%;
+}
+
+.static-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.static-legend-item .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
 .legend-toggle-btn {
     background: #f8fafc;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
     padding: 12px 20px;
     cursor: pointer;
-    display: flex;
+    display: none;
+    /* Ocultar el botón de leyenda */
     align-items: center;
     gap: 8px;
     font-family: 'Inter', sans-serif;
@@ -1689,6 +1744,21 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .static-legend {
+        margin-top: 4px;
+        padding: 0 15px;
+    }
+
+    .static-legend-items {
+        gap: 12px;
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .static-legend-item {
+        font-size: 0.8rem;
+    }
+
     .legend-toggle-btn {
         font-size: 0.8rem;
         padding: 8px 12px;
@@ -1741,7 +1811,10 @@ h1 {
     }
 
     .legend-toggle-btn {
-        font-size: 0.75rem;
-        padding: 6px 10px;
+        font-size: 0.65rem;
+        padding: 8px 12px;
+        background: #f8fafc;
+        backdrop-filter: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 }
