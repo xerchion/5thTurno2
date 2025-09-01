@@ -799,6 +799,33 @@ h1 {
 
 /* ===== CALENDARIO MODERNO INDIVIDUAL ===== */
 
+/* Header de la aplicación */
+.app-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 20px 8px 20px;
+    flex-wrap: wrap;
+}
+
+.legend-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.app-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4B0082;
+    text-align: left;
+    margin: 0;
+    padding-left: 0;
+}
+
 /* Container principal del calendario */
 .calendar-main {
     max-width: 1386px;
@@ -822,7 +849,7 @@ h1 {
 }
 
 .calendar-header {
-    margin-bottom: 24px;
+    margin-bottom: 8px;
 }
 
 .calendar-navigation {
@@ -857,23 +884,31 @@ h1 {
     gap: 20px;
     min-height: 60px;
     /* Altura mínima uniforme */
-    max-width: 400px;
-    /* Ancho máximo para mejor control */
+    width: 100%;
+    max-width: 600px;
+    /* Ancho fijo para alineación consistente */
     margin: 0 auto;
     /* Centrar el grupo */
+    padding: 0 40px;
+    /* Padding consistente para alineación */
+    box-sizing: border-box;
 }
 
 .control-buttons {
     display: flex;
-    gap: 8px;
-    /* Botones juntos sin mucho espacio */
+    gap: 6px;
+    /* Botones más juntos */
     align-items: center;
+    min-width: 120px;
+    /* Ancho mínimo fijo para alineación consistente */
+    justify-content: flex-end;
+    /* Alinear botones a la derecha del contenedor */
 }
 
 .month-title {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #1f2937;
+    color: #4B0082;
     margin: 0;
     text-align: left;
     display: flex;
@@ -881,8 +916,9 @@ h1 {
     justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
-    flex: 1;
-    /* Toma el espacio disponible */
+    width: 200px;
+    /* Ancho fijo para alineación consistente */
+    flex-shrink: 0;
 }
 
 .year-controls,
@@ -926,7 +962,7 @@ h1 {
 }
 
 .calendar-title .turno-titulo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #4B0082;
     margin: 0;
@@ -936,12 +972,13 @@ h1 {
     justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
-    flex: 1;
-    /* Toma el espacio disponible */
+    width: 200px;
+    /* Ancho fijo para alineación consistente */
+    flex-shrink: 0;
 }
 
 .year-title {
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #4B0082;
     margin: 0;
@@ -951,14 +988,15 @@ h1 {
     justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
-    flex: 1;
-    /* Toma el espacio disponible */
+    width: 200px;
+    /* Ancho fijo para alineación consistente */
+    flex-shrink: 0;
 }
 
 .month-title {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #1f2937;
+    color: #4B0082;
     margin: 0;
     line-height: 1.2;
 }
@@ -966,8 +1004,7 @@ h1 {
 .legend-indicators {
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -982,24 +1019,22 @@ h1 {
     min-width: 300px;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
 }
 
 .legend-indicators.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .legend-and-title-container {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 24px;
     padding: 0 20px;
     min-height: 80px;
     /* Altura mínima para centrado vertical */
-    position: relative;
-    /* Para posicionar el título absolutamente */
 }
 
 .legend-section {
@@ -1007,14 +1042,6 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.web-title {
-    text-align: right;
-    opacity: 0.8;
-    user-select: none;
-    flex-shrink: 0;
-    margin-left: 20px;
 }
 
 /* Menú de botones */
@@ -1396,6 +1423,37 @@ h1 {
 
 /* Responsive para calendario moderno */
 @media (max-width: 768px) {
+    .app-header {
+        padding: 8px 15px 5px 15px;
+        align-items: flex-start;
+    }
+
+    .app-title {
+        font-size: 1.2rem;
+    }
+
+    .legend-indicators {
+        min-width: 280px;
+        right: -20px;
+    }
+
+    .turno-control-group,
+    .year-control-group,
+    .month-control-group {
+        padding: 0 20px;
+        max-width: 450px;
+    }
+
+    .calendar-title .turno-titulo,
+    .year-title,
+    .month-title {
+        width: 150px;
+    }
+
+    .control-buttons {
+        min-width: 100px;
+    }
+
     .calendar-nav h2 {
         font-size: 1.25rem;
     }
@@ -1411,7 +1469,7 @@ h1 {
 
     .calendar-day {
         min-height: 60px;
-        font-size: 2.6rem;
+        font-size: 0.875rem;
     }
 
     .calendar-header {
@@ -1429,7 +1487,7 @@ h1 {
     }
 
     .year-title {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
     }
 
     .leyenda-content {
@@ -1439,9 +1497,52 @@ h1 {
 }
 
 @media (max-width: 480px) {
+    .app-header {
+        padding: 5px 10px 3px 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .legend-section {
+        align-items: center;
+    }
+
+    .app-title {
+        font-size: 0.875rem;
+        text-align: center;
+    }
+
+    .legend-indicators {
+        position: relative;
+        right: auto;
+        min-width: auto;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .turno-control-group,
+    .year-control-group,
+    .month-control-group {
+        padding: 0 15px;
+        max-width: 350px;
+    }
+
+    .calendar-title .turno-titulo,
+    .year-title,
+    .month-title {
+        width: 120px;
+        font-size: 1rem;
+    }
+
+    .control-buttons {
+        min-width: 80px;
+    }
+
     .calendar-day {
         min-height: 50px;
-        font-size: 2.4rem;
+        font-size: 0.8rem;
         padding: 4px;
     }
 
@@ -1463,7 +1564,7 @@ h1 {
     }
 
     .year-title {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 
     .leyenda-content {
@@ -1546,8 +1647,6 @@ h1 {
     .legend-indicators {
         min-width: 280px;
         max-width: calc(100vw - 40px);
-        left: 50%;
-        right: auto;
         padding: 12px;
         gap: 12px;
     }
