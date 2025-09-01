@@ -803,7 +803,7 @@ h1 {
 .app-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
     padding: 10px 20px 8px 20px;
     flex-wrap: wrap;
@@ -820,10 +820,11 @@ h1 {
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #4B0082;
-    text-align: left;
+    color: #8b4513;
+    text-align: right;
     margin: 0;
-    padding-left: 0;
+    padding-right: 0;
+    text-decoration: underline;
 }
 
 /* Container principal del calendario */
@@ -1551,7 +1552,7 @@ h1 {
     .app-header {
         display: flex;
         padding: 5px 10px 3px 10px;
-        justify-content: flex-start;
+        justify-content: flex-end;
     }
 
     .legend-indicators {
@@ -1566,7 +1567,7 @@ h1 {
     .app-title {
         display: block;
         font-size: 0.55rem;
-        text-align: left;
+        text-align: right;
     }
 
     .calendar-main {
