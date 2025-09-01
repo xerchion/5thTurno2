@@ -1,18 +1,3 @@
-/* Variables CSS para colores de turnos */
-:root {
-    --primary-color: #137fec;
-    --morning-shift-bg: #bae6fd;
-    --morning-shift-text: #0c4a6e;
-    --afternoon-shift-bg: #fde68a;
-    --afternoon-shift-text: #78350f;
-    --night-shift-bg: #374151;
-    --night-shift-text: #f9fafb;
-    --day-off-bg: #f3f4f6;
-    --day-off-text: #1f2937;
-    --holiday-bg: #ef4444;
-    --holiday-text: #ffffff;
-}
-
 /* Reset básico */
 * {
     margin: 0;
@@ -35,134 +20,6 @@ body {
     margin: 0;
     padding: 0;
     color: #1f2937;
-}
-
-/* Contenedor principal de la cabecera */
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 80px 40px 20px 40px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Contenedor para los botones */
-.botones-container {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-/* Modal de Leyenda */
-#leyendaModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: none !important;
-    visibility: hidden;
-    opacity: 0;
-}
-
-#leyendaModal.show {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    visibility: visible;
-    opacity: 1;
-}
-
-.leyenda-content {
-    background: linear-gradient(135deg, #f9f9f9 60%, #e0e0ff 100%);
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    border: 2px solid #4B0082;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-}
-
-.leyenda-content h2 {
-    color: #4B0082;
-    margin-bottom: 25px;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.leyenda-items {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 25px;
-    align-items: center;
-    justify-content: center;
-}
-
-.leyenda-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
-    padding: 10px 15px;
-    background: transparent;
-    border-radius: 8px;
-    width: 200px;
-    margin: 0 auto;
-}
-
-.color-box {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px;
-    border: 2px solid #333;
-}
-
-.mañana-color {
-    background: linear-gradient(to bottom, #6ab7ff, #0077b6);
-}
-
-.tarde-color {
-    background: linear-gradient(to bottom, #ffa500, #cc7a00);
-}
-
-.noche-color {
-    background: linear-gradient(to bottom, #444444, #000000);
-}
-
-.festivo-color {
-    background: linear-gradient(to bottom, #ff4d4d, #b30000);
-}
-
-.leyenda-item span {
-    font-size: 1.1em;
-    font-weight: 500;
-    color: #333;
-}
-
-.leyenda-buttons {
-    text-align: center;
-}
-
-#cerrarLeyendaBtn {
-    padding: 12px 24px;
-    background-color: #4B0082;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.15);
-}
-
-#cerrarLeyendaBtn:hover {
-    background-color: #6a1b9a;
 }
 
 /* Estilo para el título del modal */
@@ -188,199 +45,6 @@ body {
 
 #turnoInput {
     margin-bottom: 30px;
-}
-
-.turno {
-    font-size: 1em;
-    padding-top: 1.5em;
-}
-
-.año {
-    /* Aquí puedes cambiar el tamaño */
-    font-size: 1em;
-    color: #333;
-}
-
-.cabecera {
-    text-align: center;
-    font-size: 5em;
-    color: black;
-
-}
-
-.grid-item {
-    text-align: center;
-    align-items: center;
-    font-size: 1.5em;
-    padding-top: 0px;
-    display: flex;
-    justify-content: center;
-    border-radius: 8px;
-    color: #777;
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-rows: repeat(8, 60px);
-    grid-template-columns: repeat(7, 1fr);
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 70px;
-    gap: 10px;
-    background-color: transparent;
-    border-radius: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.grid-item:first-child {
-    background-color: #bbb;
-    grid-column: 1 / 8;
-    grid-row: 1 / 1;
-    color: black;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    font-family: "Arial Black", sans-serif;
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5em;
-}
-
-.grid-item:nth(2) {
-    visibility: hidden;
-}
-
-#sem-item {
-    background-color: #dfdfdf;
-}
-
-#mañana,
-#tarde,
-#noche,
-#festivo {
-    color: white;
-}
-
-#mañana {
-    background: linear-gradient(to bottom, #6ab7ff, #0077b6);
-}
-
-#tarde {
-    background: linear-gradient(to bottom, #ffa500, #cc7a00);
-}
-
-#noche {
-    background: linear-gradient(to bottom, #444444, #000000);
-    color: #ffffff;
-}
-
-#festivo {
-    background: linear-gradient(to bottom, #ff4d4d, #b30000);
-}
-
-h1 {
-    background-color: blueviolet;
-}
-
-.seleccion-turno {
-    font-size: 6em;
-    color: white;
-}
-
-#hueco {
-    visibility: hidden;
-}
-
-@keyframes parpadeo-pulso {
-
-    0%,
-    100% {
-        opacity: 1;
-        border-width: 1px;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.6;
-        border-width: 9px;
-        transform: scale(1.2);
-    }
-}
-
-
-
-.dia-actual {
-    border: 3px solid red;
-    animation: parpadeo-pulso 2s ease-in-out infinite;
-    border-radius: 5%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    margin: 0 auto;
-    font-size: 2em;
-    font-weight: bold;
-    z-index: 10;
-    width: 2em;
-    transition: transform 0.2s;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.grid-cabecera-semana {
-    background-color: #ddd;
-    color: #333;
-    font-weight: bold;
-    border-bottom: 2px solid #aaa;
-    padding-bottom: 5px;
-    border-radius: 8px 8px 0 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-
-}
-
-.grid-cabecera-semana div {
-    width: 24.28%;
-    text-align: center;
-}
-
-.mes-fondo-1,
-.mes-fondo-2,
-.mes-fondo-3,
-.mes-fondo-4,
-.mes-fondo-5,
-.mes-fondo-6,
-.mes-fondo-7,
-.mes-fondo-8,
-.mes-fondo-9,
-.mes-fondo-10,
-.mes-fondo-11,
-.mes-fondo-12 {
-    background-color: transparent;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
 }
 
 #selector {
@@ -668,135 +332,6 @@ h1 {
     }
 }
 
-.oculto {
-    display: none !important;
-}
-
-/* Responsive para la cabecera */
-@media (max-width: 768px) {
-    .header-container {
-        padding: 70px 20px 15px 20px;
-        gap: 15px;
-    }
-
-    .titulo-principal {
-        align-items: center;
-        text-align: center;
-    }
-
-    .titulo-principal .turno-titulo {
-        font-size: 2em;
-    }
-
-    .titulo-principal .año-titulo {
-        font-size: 2.2em;
-        color: #4B0082;
-        font-weight: bold;
-    }
-
-    .botones-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-.web-title .app-name {
-    font-size: 0.8em;
-}
-
-.web-title .author {
-    font-size: 0.6em;
-}
-
-.web-title {
-    padding: 8px 15px 0 0;
-    margin-bottom: 8px;
-}
-
-/* Leyenda responsive */
-.leyenda-content {
-    padding: 25px;
-    max-width: 350px;
-}
-
-.leyenda-content h2 {
-    font-size: 1.3em;
-}
-
-.color-box {
-    width: 25px;
-    height: 25px;
-}
-
-.leyenda-item span {
-    font-size: 1em;
-}
-
-@media (max-width: 480px) {
-    .header-container {
-        padding: 60px 15px 10px 15px;
-        gap: 10px;
-    }
-
-    .titulo-principal .turno-titulo {
-        font-size: 1.6em;
-    }
-
-    .titulo-principal .año-titulo {
-        font-size: 1.8em;
-        color: #4B0082;
-        font-weight: bold;
-    }
-
-    .botones-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .web-title .app-name {
-        font-size: 0.7em;
-    }
-
-    .web-title .author {
-        font-size: 0.5em;
-    }
-
-    .web-title {
-        padding: 5px 10px 0 0;
-        margin-bottom: 5px;
-    }
-
-    /* Leyenda responsive móvil */
-    .leyenda-content {
-        padding: 20px;
-        max-width: 300px;
-    }
-
-    .leyenda-content h2 {
-        font-size: 1.2em;
-        margin-bottom: 20px;
-    }
-
-    .leyenda-items {
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .color-box {
-        width: 20px;
-        height: 20px;
-    }
-
-    .leyenda-item {
-        gap: 10px;
-        padding: 8px;
-    }
-
-    .leyenda-item span {
-        font-size: 0.9em;
-    }
-}
-
 /* ===== CALENDARIO MODERNO INDIVIDUAL ===== */
 
 /* Header de la aplicación */
@@ -807,13 +342,6 @@ h1 {
     align-items: flex-start;
     padding: 10px 20px 8px 20px;
     flex-wrap: wrap;
-}
-
-.legend-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
 }
 
 .app-title {
@@ -1018,49 +546,6 @@ h1 {
     line-height: 1.2;
 }
 
-.legend-indicators {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    z-index: 10;
-    margin-top: 8px;
-    min-width: 300px;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(-10px);
-}
-
-.legend-indicators.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.legend-and-title-container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-bottom: 24px;
-    padding: 0 20px;
-    min-height: 80px;
-    /* Altura mínima para centrado vertical */
-}
-
-.legend-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* Menú de botones */
 .menu-buttons {
     display: flex;
@@ -1088,156 +573,25 @@ h1 {
     box-shadow: 0 4px 12px rgba(75, 0, 130, 0.25);
 }
 
-/* Modal de Leyenda */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.modal-overlay.show {
-    display: flex;
-    visibility: visible;
-    opacity: 1;
-}
-
-.leyenda-content {
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 16px;
-    padding: 32px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
-    border: 2px solid #4B0082;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-}
-
-.leyenda-content h2 {
-    color: #4B0082;
-    margin-bottom: 24px;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.leyenda-items {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.leyenda-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
-    padding: 12px 16px;
-    background: rgba(248, 250, 252, 0.8);
-    border-radius: 8px;
-    transition: background 0.2s ease;
-}
-
-.leyenda-item:hover {
-    background: rgba(241, 245, 249, 0.9);
-}
-
-.color-box {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: 2px solid #374151;
-    flex-shrink: 0;
-}
-
-.mañana-color {
-    background: linear-gradient(135deg, #60a5fa, #3b82f6);
-}
-
-.tarde-color {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-}
-
-.noche-color {
-    background: linear-gradient(135deg, #374151, #111827);
-}
-
-.festivo-color {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-}
-
-.leyenda-item span {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #1f2937;
-}
-
-.leyenda-buttons {
-    text-align: center;
-}
-
-#cerrarLeyendaBtn {
-    padding: 12px 24px;
-    background-color: #4B0082;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.15);
-}
-
-#cerrarLeyendaBtn:hover {
-    background-color: #6a1b9a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.25);
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.morning-shift {
+/* Colores para la leyenda estática */
+.static-legend-item .legend-dot.morning-shift {
     background: #3b82f6;
 }
 
-.afternoon-shift {
+.static-legend-item .legend-dot.afternoon-shift {
     background: #f59e0b;
 }
 
-.night-shift {
+.static-legend-item .legend-dot.night-shift {
     background: #374151;
 }
 
-.day-off {
+.static-legend-item .legend-dot.day-off {
     background: #ffffff;
     border: 2px solid #6b7280;
 }
 
-.holiday {
+.static-legend-item .legend-dot.holiday {
     background: #ef4444;
 }
 
@@ -1465,11 +819,6 @@ h1 {
         font-size: 0.9rem;
     }
 
-    .legend-indicators {
-        min-width: 280px;
-        right: -20px;
-    }
-
     .turno-control-group,
     .year-control-group,
     .month-control-group {
@@ -1525,11 +874,6 @@ h1 {
         font-size: 1rem;
         /* Tamaño reducido para tablets */
     }
-
-    .leyenda-content {
-        padding: 24px;
-        max-width: 350px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1553,15 +897,6 @@ h1 {
         display: flex;
         padding: 5px 10px 3px 10px;
         justify-content: flex-end;
-    }
-
-    .legend-indicators {
-        margin: 0 auto;
-        max-width: calc(100vw - 20px);
-        padding: 12px;
-        gap: 12px;
-        min-width: auto;
-        width: fit-content;
     }
 
     .app-title {
@@ -1650,27 +985,6 @@ h1 {
         font-size: 0.95rem;
         /* Tamaño reducido para móviles */
     }
-
-    .leyenda-content {
-        padding: 20px;
-        max-width: 300px;
-    }
-
-    .leyenda-content h2 {
-        font-size: 1.3rem;
-    }
-
-    .color-box {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-/* Legend toggle button styles */
-.legend-toggle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Leyenda estática siempre visible */
@@ -1711,39 +1025,6 @@ h1 {
     flex-shrink: 0;
 }
 
-.legend-toggle-btn {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 12px 20px;
-    cursor: pointer;
-    display: none;
-    /* Ocultar el botón de leyenda */
-    align-items: center;
-    gap: 8px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #475569;
-    transition: all 0.2s ease;
-}
-
-.legend-toggle-btn:hover {
-    background: #e2e8f0;
-    border-color: #cbd5e1;
-    transform: translateY(-1px);
-}
-
-.legend-toggle-icon {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.2s ease;
-}
-
-.legend-toggle-btn.expanded .legend-toggle-icon {
-    transform: rotate(180deg);
-}
-
 @media (max-width: 768px) {
     .static-legend {
         margin-top: 4px;
@@ -1758,64 +1039,5 @@ h1 {
 
     .static-legend-item {
         font-size: 0.8rem;
-    }
-
-    .legend-toggle-btn {
-        font-size: 0.8rem;
-        padding: 8px 12px;
-    }
-
-    .legend-and-title-container {
-        padding: 0 10px;
-        gap: 15px;
-    }
-
-    .web-title {
-        margin-left: 10px;
-    }
-
-    .web-title .app-name {
-        font-size: 0.9rem;
-    }
-
-    .web-title .author {
-        font-size: 0.7rem;
-    }
-
-    .legend-indicators {
-        min-width: 280px;
-        max-width: calc(100vw - 40px);
-        padding: 12px;
-        gap: 12px;
-    }
-
-    .legend-item {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .legend-and-title-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .legend-section {
-        order: 1;
-    }
-
-    .web-title {
-        order: 2;
-        margin-left: 0;
-        text-align: center;
-    }
-
-    .legend-toggle-btn {
-        font-size: 0.65rem;
-        padding: 8px 12px;
-        background: #f8fafc;
-        backdrop-filter: none;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 }

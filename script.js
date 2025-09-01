@@ -514,25 +514,7 @@ function initializeYearSelector() {
     añoSelect.value = añoActual;
 }
 
-// Función para mostrar/ocultar la leyenda
-function toggleLegendVisibility() {
-    const legendIndicators = document.getElementById('legendIndicators');
-    const toggleBtn = document.getElementById('toggleLegend');
-    const toggleText = toggleBtn.querySelector('.legend-toggle-text');
-    const toggleIcon = toggleBtn.querySelector('.legend-toggle-icon');
-
-    if (legendIndicators.classList.contains('show')) {
-        // Ocultar leyenda
-        legendIndicators.classList.remove('show');
-        toggleText.textContent = 'Leyenda';
-        toggleBtn.classList.remove('expanded');
-    } else {
-        // Mostrar leyenda
-        legendIndicators.classList.add('show');
-        toggleText.textContent = 'Leyenda';
-        toggleBtn.classList.add('expanded');
-    }
-}// Función para inicializar eventos del DOM
+// Función para inicializar eventos del DOM
 function initializeEvents() {
     // Cerrar ventana con el botón Cancelar
     document.getElementById('cancelarBtn').onclick = function () {
@@ -582,11 +564,6 @@ function initializeEvents() {
 
     document.getElementById('nextTurno').onclick = function () {
         nextTurno();
-    };
-
-    // Event listener para toggle de leyenda
-    document.getElementById('toggleLegend').onclick = function () {
-        toggleLegendVisibility();
     };
 }
 
