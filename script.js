@@ -521,20 +521,18 @@ function toggleLegendVisibility() {
     const toggleText = toggleBtn.querySelector('.legend-toggle-text');
     const toggleIcon = toggleBtn.querySelector('.legend-toggle-icon');
 
-    if (legendIndicators.style.display === 'none') {
-        // Mostrar leyenda
-        legendIndicators.style.display = 'flex';
-        toggleText.textContent = 'Ocultar leyenda';
-        toggleBtn.classList.add('expanded');
-    } else {
+    if (legendIndicators.classList.contains('show')) {
         // Ocultar leyenda
-        legendIndicators.style.display = 'none';
-        toggleText.textContent = 'Mostrar leyenda';
+        legendIndicators.classList.remove('show');
+        toggleText.textContent = 'Leyenda';
         toggleBtn.classList.remove('expanded');
+    } else {
+        // Mostrar leyenda
+        legendIndicators.classList.add('show');
+        toggleText.textContent = 'Leyenda';
+        toggleBtn.classList.add('expanded');
     }
-}
-
-// Función para inicializar eventos del DOM
+}// Función para inicializar eventos del DOM
 function initializeEvents() {
     // Cerrar ventana con el botón Cancelar
     document.getElementById('cancelarBtn').onclick = function () {

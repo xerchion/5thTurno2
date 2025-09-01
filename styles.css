@@ -853,24 +853,36 @@ h1 {
 .month-control-group {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 48px;
-    /* Mismo gap amplio para todos */
+    justify-content: space-between;
+    gap: 20px;
     min-height: 60px;
     /* Altura mínima uniforme */
+    max-width: 400px;
+    /* Ancho máximo para mejor control */
+    margin: 0 auto;
+    /* Centrar el grupo */
+}
+
+.control-buttons {
+    display: flex;
+    gap: 8px;
+    /* Botones juntos sin mucho espacio */
+    align-items: center;
 }
 
 .month-title {
-    min-width: 220px;
-    /* Aumentado 30% desde 160px para más margen */
-    text-align: center;
-    margin: 0 30px;
-    /* Margen adicional de 30px a cada lado */
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    text-align: left;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
+    flex: 1;
+    /* Toma el espacio disponible */
 }
 
 .year-controls,
@@ -917,32 +929,30 @@ h1 {
     font-size: 1.5rem;
     font-weight: bold;
     color: #4B0082;
-    margin: 0 30px;
-    /* Mismo margen que el mes */
+    margin: 0;
     line-height: 1.2;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
-    min-width: 220px;
-    /* Mismo ancho mínimo que el mes */
+    flex: 1;
+    /* Toma el espacio disponible */
 }
 
 .year-title {
     font-size: 2.25rem;
     font-weight: 700;
     color: #4B0082;
-    margin: 0 30px;
-    /* Mismo margen que el mes */
+    margin: 0;
     line-height: 1.2;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 40px;
     /* Altura mínima para alineación */
-    min-width: 220px;
-    /* Mismo ancho mínimo que el mes */
+    flex: 1;
+    /* Toma el espacio disponible */
 }
 
 .month-title {
@@ -954,17 +964,36 @@ h1 {
 }
 
 .legend-indicators {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
-    margin-top: 16px;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+    margin-top: 8px;
+    min-width: 300px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.legend-indicators.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .legend-and-title-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-between;
     margin-bottom: 24px;
     padding: 0 20px;
     min-height: 80px;
@@ -973,12 +1002,19 @@ h1 {
     /* Para posicionar el título absolutamente */
 }
 
+.legend-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .web-title {
-    position: absolute;
-    right: 20px;
     text-align: right;
     opacity: 0.8;
     user-select: none;
+    flex-shrink: 0;
+    margin-left: 20px;
 }
 
 /* Menú de botones */
@@ -1375,7 +1411,7 @@ h1 {
 
     .calendar-day {
         min-height: 60px;
-        font-size: 0.875rem;
+        font-size: 2.6rem;
     }
 
     .calendar-header {
@@ -1405,7 +1441,7 @@ h1 {
 @media (max-width: 480px) {
     .calendar-day {
         min-height: 50px;
-        font-size: 0.8rem;
+        font-size: 2.4rem;
         padding: 4px;
     }
 
@@ -1450,7 +1486,6 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 16px;
 }
 
 .legend-toggle-btn {
@@ -1488,6 +1523,59 @@ h1 {
 @media (max-width: 768px) {
     .legend-toggle-btn {
         font-size: 0.8rem;
-        padding: 10px 16px;
+        padding: 8px 12px;
+    }
+
+    .legend-and-title-container {
+        padding: 0 10px;
+        gap: 15px;
+    }
+
+    .web-title {
+        margin-left: 10px;
+    }
+
+    .web-title .app-name {
+        font-size: 0.9rem;
+    }
+
+    .web-title .author {
+        font-size: 0.7rem;
+    }
+
+    .legend-indicators {
+        min-width: 280px;
+        max-width: calc(100vw - 40px);
+        left: 50%;
+        right: auto;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .legend-item {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .legend-and-title-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .legend-section {
+        order: 1;
+    }
+
+    .web-title {
+        order: 2;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .legend-toggle-btn {
+        font-size: 0.75rem;
+        padding: 6px 10px;
     }
 }
