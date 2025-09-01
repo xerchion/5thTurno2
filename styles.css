@@ -916,8 +916,8 @@ h1 {
 }
 
 .month-title {
-    font-size: 0.9rem;
-    /* Tamaño más pequeño para evitar superposiciones */
+    font-size: 1.3rem;
+    /* Tamaño aumentado para mejor legibilidad */
     font-weight: 700;
     color: #4B0082;
     margin: 0;
@@ -974,8 +974,8 @@ h1 {
 }
 
 .calendar-title .turno-titulo {
-    font-size: 0.9rem;
-    /* Tamaño reducido para uniformidad */
+    font-size: 1.2rem;
+    /* Tamaño aumentado para mejor legibilidad */
     font-weight: bold;
     color: #4B0082;
     margin: 0;
@@ -992,8 +992,8 @@ h1 {
 }
 
 .year-title {
-    font-size: 1.1rem;
-    /* Tamaño reducido para mejor ajuste */
+    font-size: 1.4rem;
+    /* Tamaño aumentado para mejor legibilidad */
     font-weight: 700;
     color: #4B0082;
     margin: 0;
@@ -1010,7 +1010,7 @@ h1 {
 }
 
 .month-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #4B0082;
     margin: 0;
@@ -1345,22 +1345,28 @@ h1 {
 
 /* Día actual */
 .calendar-day.today {
-    background: radial-gradient(circle, #ffffff, #ef4444) !important;
-    color: #1f2937 !important;
+    background: transparent !important;
+    color: #ffffff !important;
     font-weight: 700;
-    border: 4px solid #3b82f6;
-    box-shadow: 0 0 0 4px #dbeafe, 0 4px 12px rgba(59, 130, 246, 0.3);
+    border: none;
+    box-shadow: none;
     border-radius: 12px;
     animation: pulse-today 2s ease-in-out infinite;
     position: relative;
     z-index: 10;
     padding: 12px;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.9),
+        0 0 12px rgba(255, 0, 0, 0.7),
+        0 0 16px rgba(255, 0, 0, 0.5);
 }
 
 .calendar-day.today:hover {
-    background: linear-gradient(135deg, #e5e7eb, #d1d5db) !important;
+    background: transparent !important;
     transform: scale(1.08);
-    border-color: #2563eb;
+    border: none;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 1),
+        0 0 24px rgba(255, 0, 0, 0.9),
+        0 0 28px rgba(255, 0, 0, 0.7);
 }
 
 @keyframes pulse-border {
@@ -1383,26 +1389,35 @@ h1 {
     100% {
         transform: scale(1);
         opacity: 1;
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px #dbeafe, 0 4px 12px rgba(59, 130, 246, 0.3);
-        background: radial-gradient(circle, #ffffff, #ef4444) !important;
+        background: transparent !important;
+        text-shadow: 0 0 8px rgba(255, 0, 0, 0.9),
+            0 0 12px rgba(255, 0, 0, 0.7),
+            0 0 16px rgba(255, 0, 0, 0.5);
     }
 
     25% {
         transform: scale(1.05);
         opacity: 0.9;
+        text-shadow: 0 0 12px rgba(255, 0, 0, 1),
+            0 0 16px rgba(255, 0, 0, 0.8),
+            0 0 20px rgba(255, 0, 0, 0.6);
     }
 
     50% {
         transform: scale(1.1);
         opacity: 0.8;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 6px #bfdbfe, 0 8px 20px rgba(37, 99, 235, 0.5);
+        text-shadow: 0 0 16px rgba(255, 0, 0, 1),
+            0 0 20px rgba(255, 0, 0, 1),
+            0 0 24px rgba(255, 0, 0, 0.8),
+            0 0 28px rgba(255, 0, 0, 0.6);
     }
 
     75% {
         transform: scale(1.05);
         opacity: 0.9;
+        text-shadow: 0 0 12px rgba(255, 0, 0, 1),
+            0 0 16px rgba(255, 0, 0, 0.8),
+            0 0 20px rgba(255, 0, 0, 0.6);
     }
 }
 
@@ -1589,7 +1604,7 @@ h1 {
 
     .calendar-day {
         min-height: 50px;
-        font-size: 1.6rem;
+        font-size: 1.44rem;
         padding: 4px;
     }
 
